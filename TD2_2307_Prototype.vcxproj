@@ -133,6 +133,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Boss.cpp" />
     <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="Key.cpp" />
     <ClCompile Include="main.cpp" />
@@ -141,6 +142,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BaseScene.h" />
+    <ClInclude Include="Boss.h" />
     <ClInclude Include="GameScene.h" />
     <ClInclude Include="Key.h" />
     <ClInclude Include="SceneManager.h" />

@@ -1,6 +1,7 @@
 #pragma once
 #include "BaseScene.h"
 #include "Key.h"
+#include "Boss.h"
 
 class GameScene : public BaseScene {
 	// --ƒƒ“ƒo•Ï”-- //
@@ -28,5 +29,7 @@ public:
 	void Draw();
 
 private:
+	//ƒ{ƒX
+	Boss boss_;
 
 };
