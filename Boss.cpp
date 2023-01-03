@@ -155,7 +155,7 @@ void Boss::Draw()
 	//ÉrÅ[ÉÄ
 	if (isBeam_) {
 		DrawLine(pos_.x, pos_.y, pos_.x + beamWay_.x * 300, pos_.y + beamWay_.y * 300, GetColor(100, 100, 0), 50);
-		if (beamLen_ == 200) {
+		if (beamLen_ == 300) {
 			DrawLine(pos_.x, pos_.y, pos_.x + beamWay_.x * beamLen_, pos_.y + beamWay_.y * beamLen_, GetColor(200, 0, 0), 50);
 		}
 		else {
