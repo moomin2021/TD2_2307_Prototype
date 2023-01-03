@@ -11,11 +11,12 @@ void Boss::Initialize()
 
 void Boss::Update()
 {
+	//行動パターンを乱数で決定
 	srand(time(NULL));
 	int pattern = rand() % 30;
-	//int pattern = 4;
 
 	if (--coolTime_ <= 0) {
+		//突進(4方向)
 		if (pattern == 0) {
 			dash_ = { 20,0 };
 			coolTime_ = SetTime(1);
@@ -32,14 +33,16 @@ void Boss::Update()
 			dash_ = { 0,-20 };
 			coolTime_ = SetTime(1);
 		}
+		//ジャンプ攻撃
 		else if (pattern >= 4 && pattern <= 8) {
 			isJump_ = true;
 		}
+		//ビーム攻撃
 		else if (pattern >= 9 && pattern <= 20) {
 			isBeam_ = SetTime(1);
 		}
+		//弾発射
 		else {
-
 			BulletShot(Vector2(0, 3));
 			BulletShot(Vector2(3, 0));
 			BulletShot(Vector2(0, -3));
@@ -50,9 +53,8 @@ void Boss::Update()
 			BulletShot(Vector2(-2.4f, 2.4f));
 			coolTime_ = SetTime(2);
 		}
-
 	}
-
+	//突進
 	pos_ += dash_;
 	if (dash_.x < 0) {
 		dash_.x++;
@@ -79,6 +81,7 @@ void Boss::Update()
 		}
 	}
 
+	//ジャンプ攻撃
 	if (isJump_ == true) {
 		if (size_ == 10) {
 			jumpTime_--;
@@ -103,7 +106,7 @@ void Boss::Update()
 			isImpact_ = true;
 		}
 	}
-
+	//着地
 	if (isImpact_ == true) {
 		impactSize_ += 10;
 		if (impactSize_ >= 100) {
@@ -115,7 +118,7 @@ void Boss::Update()
 			impactSize_ -= 10;
 		}
 	}
-
+	//ビーム攻撃
 	if (isBeam_) {
 		beamWay_ = playerPos_ - pos_;
 		beamWay_.normalize();
