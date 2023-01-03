@@ -32,8 +32,11 @@ void Boss::Update()
 			dash_ = { 0,-20 };
 			coolTime_ = SetTime(1);
 		}
-		else if (pattern >= 4 && pattern <= 10) {
+		else if (pattern >= 4 && pattern <= 8) {
 			isJump_ = true;
+		}
+		else if (pattern >= 9 && pattern <= 20) {
+			isBeam_ = SetTime(1);
 		}
 		else {
 
@@ -81,7 +84,7 @@ void Boss::Update()
 			jumpTime_--;
 			if (jumpTime_ == 0) {
 				isJump_ = false;
-				jumpTime_ = SetTime(3);
+				jumpTime_ = SetTime(2);
 				coolTime_ = SetTime(5);
 			}
 		}
@@ -113,6 +116,25 @@ void Boss::Update()
 		}
 	}
 
+	if (isBeam_) {
+		beamWay_ = playerPos_ - pos_;
+		beamWay_.normalize();
+
+		if (beamLen_ >= 300) {
+			isBeam_--;
+			if (isBeam_ == 0) {
+				coolTime_ = SetTime(2);
+			}
+		}
+		else {
+			beamLen_++;
+		}
+	}
+	else {
+		beamLen_ = 0;
+		
+	}
+
 	for (std::unique_ptr<EnemyBullet>& bullet : bullet_) {
 		bullet->Update();
 	}
@@ -125,9 +147,21 @@ void Boss::Draw()
 		DrawBox(pos_.x - size_, pos_.y - size_, pos_.x + size_, pos_.y + size_, GetColor(200, 0, 0), true);
 	}
 	else {
+		//âe
 		DrawCircle(pos_.x, pos_.y, size_, GetColor(50, 50, 50), true);
 	}
+	//íÖínéûÇÃè’åÇ
 	DrawCircle(pos_.x, pos_.y, impactSize_, GetColor(250, 250, 0), true);
+	//ÉrÅ[ÉÄ
+	if (isBeam_) {
+		DrawLine(pos_.x, pos_.y, pos_.x + beamWay_.x * 300, pos_.y + beamWay_.y * 300, GetColor(100, 100, 0), 50);
+		if (beamLen_ == 200) {
+			DrawLine(pos_.x, pos_.y, pos_.x + beamWay_.x * beamLen_, pos_.y + beamWay_.y * beamLen_, GetColor(200, 0, 0), 50);
+		}
+		else {
+			DrawLine(pos_.x, pos_.y, pos_.x + beamWay_.x * beamLen_, pos_.y + beamWay_.y * beamLen_, GetColor(200, 200, 0), 50);
+		}
+	}
 
 	for (std::unique_ptr<EnemyBullet>& bullet : bullet_) {
 		bullet->Draw();

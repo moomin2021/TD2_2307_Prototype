@@ -41,9 +41,14 @@ private:
 
 	//ジャンプ攻撃
 	bool isJump_;
-	int jumpTime_ = 3 * 60;
+	int jumpTime_ = 2 * 60;
 	int impactSize_;
 	bool isImpact_;
+
+	//ビーム攻撃
+	int isBeam_ = 0;
+	float beamLen_ = 0;
+	Vector2 beamWay_;
 
 	//プレイヤーの位置
 	Vector2 playerPos_;
